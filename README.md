@@ -11,15 +11,34 @@ npm run dev          # http://localhost:3000
 
 Voraussetzung: Node.js ≥ 20.
 
+### Start per Skript (empfohlen)
+
+| System        | Aufruf                                                                  |
+| ------------- | ----------------------------------------------------------------------- |
+| macOS / Linux | `./start.sh` im Terminal (macOS auch: Doppelklick auf `start.command`)  |
+| Windows       | Doppelklick auf `start.cmd` oder `start.cmd` in der Eingabeaufforderung |
+
+Das Skript prüft Node.js, führt bei Bedarf einmalig `npm install` aus, startet den Dev-Server und öffnet den Browser. Beenden mit `Strg+C`.
+
+**Andere Apps auf Port 3000:** Das Skript beendet **keine** fremden Prozesse. Ist 3000 belegt, nimmt es den nächsten freien Port (3001, 3002 …) und zeigt die Adresse an. Läuft CoachBoard schon, wird nur der Browser geöffnet.
+
+| Option                                                             | Wirkung                                                   |
+| ------------------------------------------------------------------ | --------------------------------------------------------- |
+| `PORT=3005 ./start.sh` · Windows: `set PORT=3005` dann `start.cmd` | Anderer Start-Port                                        |
+| `PORT_STRICT=1 ./start.sh`                                         | Kein Ausweichen – bei belegtem Port mit Meldung abbrechen |
+| `NO_BROWSER=1 ./start.sh`                                          | Browser nicht automatisch öffnen                          |
+
+**Weblinks** auf `http://localhost:3000` liegen in `shortcuts/`: `CoachBoard.url` (Windows), `CoachBoard.webloc` (macOS), `coachboard.desktop` (Linux). Einfach auf den Desktop kopieren. Hinweis: Der Link funktioniert nur, solange der Server läuft und Port 3000 nutzt – bei anderem Port die URL in der Datei anpassen.
+
 ## Skripte
 
-| Befehl | Zweck |
-| --- | --- |
-| `npm run dev` | Entwicklungsserver |
-| `npm run build` / `npm start` | Produktions-Build / -Server |
-| `npm run lint` / `npm run typecheck` | ESLint / TypeScript |
-| `npm test` | Unit-Tests (Vitest) |
-| `npm run test:e2e` | E2E-Tests (Playwright, startet `next start` selbst; vorher `npm run build`) |
+| Befehl                               | Zweck                                                                       |
+| ------------------------------------ | --------------------------------------------------------------------------- |
+| `npm run dev`                        | Entwicklungsserver                                                          |
+| `npm run build` / `npm start`        | Produktions-Build / -Server                                                 |
+| `npm run lint` / `npm run typecheck` | ESLint / TypeScript                                                         |
+| `npm test`                           | Unit-Tests (Vitest)                                                         |
+| `npm run test:e2e`                   | E2E-Tests (Playwright, startet `next start` selbst; vorher `npm run build`) |
 
 Falls Playwright die Browser nicht findet: `npx playwright install chromium` oder `PW_CHROMIUM_PATH=/pfad/zu/chrome` setzen.
 

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Link
+Name=CoachBoard
+Comment=Fußball-Trainingsplaner (lokal)
+URL=http://localhost:3000/
+Icon=applications-games
