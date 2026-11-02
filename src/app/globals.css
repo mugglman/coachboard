@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===== Design-Tokens ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f5f7fa;
+  --sidebar: #ffffff;
+  --card: #ffffff;
+  --fg: #17212f;
+  --muted-fg: #64748b;
+  --border: #e2e8f0;
+  --accent: #00bfa6;
+  --accent-fg: #ffffff;
+  --accent-soft: rgba(0, 191, 166, 0.12);
+  --hover: #f1f5f9;
+  --danger: #dc2626;
+  --canvas-bg: #e9edf2;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.06);
+}
+
+.dark {
+  --bg: #10151d;
+  --sidebar: #19212c;
+  --card: #222c38;
+  --fg: #f8fafc;
+  --muted-fg: #94a3b8;
+  --border: #2c3846;
+  --accent: #00d4b4;
+  --accent-fg: #062a25;
+  --accent-soft: rgba(0, 212, 180, 0.14);
+  --hover: #2a3542;
+  --danger: #f87171;
+  --canvas-bg: #0c1117;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-sidebar: var(--sidebar);
+  --color-card: var(--card);
+  --color-fg: var(--fg);
+  --color-muted-fg: var(--muted-fg);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-hover: var(--hover);
+  --color-danger: var(--danger);
+  --color-canvas: var(--canvas-bg);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --shadow-soft: var(--shadow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  border-color: var(--border);
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+/* dezente Scrollbars */
+.thin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
 }

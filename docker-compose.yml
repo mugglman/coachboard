@@ -1,0 +1,11 @@
+# Betrieb auf eigenem Linux-VPS hinter einem Reverse Proxy (z. B. Caddy, Traefik, nginx).
+services:
+  coachboard:
+    build: .
+    image: coachboard:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    # Später: PostgreSQL-Dienst ergänzen und DATABASE_URL setzen
+    # environment:
+    #   DATABASE_URL: postgres://coachboard:***@db:5432/coachboard

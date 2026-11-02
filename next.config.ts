@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Standalone-Output für schlanke Docker-Images (VPS + Reverse Proxy)
+  output: "standalone",
   turbopack: {
     rules: {
       "*.css": {

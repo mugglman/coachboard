@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CoachBoard
 
-## Getting Started
+Visueller Fußball-Trainingsplaner im Browser: Übungen auf einem 2D-Spielfeld aufbauen, Lauf-, Pass- und Dribbelwege zeichnen, in Schritten animieren, lokal speichern, als PNG/PDF/Video/JSON exportieren und zu Trainingseinheiten zusammenstellen. Schwerpunkt: F-, E- und D-Jugend.
 
-First, run the development server:
+## Schnellstart
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Voraussetzung: Node.js ≥ 20.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Skripte
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Befehl | Zweck |
+| --- | --- |
+| `npm run dev` | Entwicklungsserver |
+| `npm run build` / `npm start` | Produktions-Build / -Server |
+| `npm run lint` / `npm run typecheck` | ESLint / TypeScript |
+| `npm test` | Unit-Tests (Vitest) |
+| `npm run test:e2e` | E2E-Tests (Playwright, startet `next start` selbst; vorher `npm run build`) |
 
-## Learn More
+Falls Playwright die Browser nicht findet: `npx playwright install chromium` oder `PW_CHROMIUM_PATH=/pfad/zu/chrome` setzen.
 
-To learn more about Next.js, take a look at the following resources:
+## Bedienung (Kurzfassung)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Linke Leiste:** Spieler, Ball, Material, Zonen/Text per Klick ins Feld oder Drag & Drop platzieren. Wege (Laufweg, Pass, Dribbling, Torschuss) frei zeichnen.
+- **Weg am Spieler/Ball beginnen** → das Objekt folgt dem Weg in der Animation. Dribbling nimmt einen nahen Ball automatisch mit.
+- **Schritte (rechts):** Jeder Schritt ist ein Keyframe. Spieler in einem Schritt verschieben erzeugt eine Bewegung vom vorherigen Schritt.
+- **Timeline (unten):** Abspielen, Tempo, Schleife, Schrittdauer ziehen, Start/Ende einzelner Wege verschieben.
+- **Tastenkürzel:** `V` Auswahl, `H` Hand, `L/P/D/S` Wege, `Entf` löschen, `Strg+Z/Y` Undo/Redo, `Strg+C/V/D` Kopieren/Einfügen/Duplizieren, `Leertaste` Play/Pause, Pfeiltasten verschieben (Shift = 2 m), `F` einpassen, `Esc` Werkzeug zurücksetzen.
+- **Smartphone:** `/play?id=…` – Vollbild-Wiedergabe, im Hochformat automatisch gedreht.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment (VPS mit Docker)
 
-## Deploy on Vercel
+```bash
+docker compose up -d --build    # lauscht auf 127.0.0.1:3000
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Reverse Proxy (Beispiel Caddy):
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+coachboard.example.de {
+  reverse_proxy 127.0.0.1:3000
+}
+```
+
+Daten liegen aktuell im Browser (IndexedDB) – Backups über „Backup“ (JSON) in der Bibliothek.
+
+Weitere Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), Stand: [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
